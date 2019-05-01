@@ -18,7 +18,7 @@ main:  			la $t0, n		#t0 = &n
 
 
 
-bubbleSort:		addi $t2, $zero, 1     # trocou = TRUE
+bubbleSort:		dadi $t2, $zero, 1     # trocou = TRUE
 				addi $t3, $s0, -1	   # limite = n - 1
 
 while:			slt $t4, $zero, $t3			  #inicio cond_while
