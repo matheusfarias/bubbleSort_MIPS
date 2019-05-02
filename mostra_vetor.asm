@@ -12,13 +12,6 @@ main:		la $s0, vetor
 
 
 
-		
-
-
-
-
-
-
 #------------------------------------------------------------------------------
 # ROTINA mostra_vetor
 #		Mostra no display bitmap cor correspondente a todos os elementos de vetor
@@ -33,6 +26,8 @@ main:		la $s0, vetor
 
 
 mostra_vetor:													# COMPLETAR
+				addi $sp, $sp, -4
+				sw $ra, 0($sp)
 				
 
 
