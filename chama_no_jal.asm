@@ -8,7 +8,6 @@ main:
 
 	addi $s0, $zero, 5
 
-
 	li $v0, 1
 	add $a0, $zero, $s0
 	syscall

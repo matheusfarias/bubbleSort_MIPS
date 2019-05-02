@@ -1,3 +1,4 @@
+#USO DOS REGISTRADORES:
 # t1 =	i
 # t2 =	trocou
 # t3 = 	limite
@@ -8,8 +9,7 @@
 #t7 = v[i+1]
 # s0 = n
 # s1 = &vetor[0]
-
- 	
+#--------------------------------------------------------
 
 main:  			la $t0, n		#t0 = &n
 				lw $s0, 0($t0)	#t6 = n	
@@ -43,8 +43,7 @@ for:			slt $t4, $t1, $t3			# >
 				slt $t4, $t7, $t6			# >
 				beq $t4, $zero, fim_if	# if (v[i] > v[i+1])
 
-				sw $t6, 4($t5)				# >
-				sw $t7, 0($t5)				# swap
+				jal troca
 
 				addi $t2, $zero, 1			# trocou = TRUE
 
@@ -59,11 +58,20 @@ fim_for:		addi $t3, $t3, -1          #limite--
 fim_while:     	addi $v0, $zero, 10
 				syscall
 
-				
+
+
+
+troca:		lw $t0, 0($t5)
+			lw $t4, 4($t5)
+			sw $t0, 4($t5)
+			sw $t4, 0($t5)
+
+			jr $ra
+
+
+
 
 # ------------------------------------------------------------------
 		.data
 vetor:	.word   6 5 4 3 2 1
 n: 		.word   6
-
-
