@@ -3,6 +3,7 @@
 			.text
 
 main:		la $s0, vetor
+			la $s1, n
 
 			jal mostra_vetor
 
@@ -10,6 +11,9 @@ main:		la $s0, vetor
 			li $v0, 4
 			syscall
 
+
+finalizar:	li $v0, 10
+			syscall	
 
 
 #------------------------------------------------------------------------------
@@ -26,9 +30,27 @@ main:		la $s0, vetor
 
 
 mostra_vetor:													# COMPLETAR
-				addi $sp, $sp, -4
-				sw $ra, 0($sp)
+				addi $sp, $sp, -4				#alocando espaco em sp
+				sw $ra, 0($sp)					#salvando o endereco de retorno da main na pilha
+
+				addi $t0, $zero, 0				# j = 0
+				lw $t1, 0($s1)					# t1 = n
+
+for:			slt $t2, $t0, $t1
+				beq $t2, $zero, fim_for
+
+				add $a0, $zero, $t0				#a0 = i (a0 é parametro)
+				jal	mostra_elemento_vetor
+
+				addi $t0, $t0, 1
+				j for
+
+fim_for:		lw $ra, 0($sp)					#restaurando valor de ra
+				addi $ra, $ra, 4				#liberando espaco na pilha
+				jr $ra 							#voltando pra main
 				
+
+
 
 
 
@@ -95,7 +117,7 @@ mostra_elemento_vetor:	addi	$sp, $sp, -28			# Aloca espaço para 7 palavras na p
 #n:						.word 16									# Número de elementos do vetor (no máximo 16)
 n:					.word	6
 
-vetor:				.word	6 5 4 3 2 1								# Vetor a ser ordenado (com 16 valores entre 0 e 15)
+vetor:				.word	1 2 3 4 5 6								# Vetor a ser ordenado (com 16 valores entre 0 e 15)
 #vetor:				.word 9 1 10 2 6 13 15 0 12 5 7 14 4 3 11 8
 #vetor:				.word 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 #vetor:				.word 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
