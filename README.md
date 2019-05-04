@@ -1,2 +1,4 @@
-# bubbleSort_MIPS
-bubbleSort on mips 
+# Ordenação e visualização no processador MIPS (_Bubblesort_)
+
+
+
