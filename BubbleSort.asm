@@ -1,5 +1,17 @@
 #Aluno: Matheus Farias dos Santos
 #RGA:   2018.1905.005.0
+# ----------------------------------------------------------------------------------------
+#Uso de registradores na subrotina bubbleSort:
+# $t1 = i
+# $t2 = trocou
+# $t3 = limite
+# $t4 = aux
+# $t5 = &vetor[i]
+# $t6 = vetor[i]
+# $t7 = vetor[i+1]
+# $s0 = &n
+# $s1 = &vetor[0]
+# ----------------------------------------------------------------------------------------
 							.text
 
 
@@ -7,16 +19,16 @@ main:				addi $v0, $zero, 4
 					la $a0,msg1
 					syscall
 
-					jal bubbleSort
+					jal bubbleSort						
 
-					addi $v0, $zero, 10
+					addi $v0, $zero, 10				#finalizando programa
 					syscall	
 
 bubbleSort:		addi $sp, $sp, -4
 					sw $ra, 0($sp)
 
-					la $s1, n
-					la $s0, vetor
+					la $s1, n							# s1 = &n
+					la $s0, vetor						# s0 = &vetor
 					lw $t7, 0($s1)
 
 					jal mostra_vetor
@@ -24,7 +36,7 @@ bubbleSort:		addi $sp, $sp, -4
 					addi $t2, $zero, 1     			# trocou = TRUE
 					addi $t3, $t7, -1	   			# limite = n - 1
 
-while:			slt $t4, $zero, $t3			  #inicio cond_while
+while:			slt $t4, $zero, $t3			  	#inicio cond_while
 					beq $t4, $zero, fim_while
 
 					beq $t2, $zero, fim_while     #fim cond_while
@@ -133,14 +145,14 @@ mostra_elemento_vetor:	addi	$sp, $sp, -28			# Aloca espaÃ§o para 7 palavras na
 						lw		$t4, 16 ($sp)
 						lw		$t5, 20 ($sp)
 						lw		$t6, 24 ($sp)
-						addi	$sp, $sp, 28					# Libera espaÃ§o de 7 palavras na pilha
+						addi	$sp, $sp, 28					# Libera espaco de 7 palavras na pilha
 						jr		$ra								# Retorna da rotina
 
 #------------------------------------------------------------------------------
-						.data										# Ã?rea de dados
+						.data										# Area de dados
 #------------------------------------------------------------------------------
-																	# VariÃ¡veis e estruturas de dados do programa
-n:						.word 16									# NÃºmero de elementos do vetor (no mÃ¡ximo 16)
+																	# Variaveis e estruturas de dados do programa
+n:						.word 16									# Numero de elementos do vetor (no maximo 16)
 #n:						.word 6
 #vetor:					.word 1 2 3 4 5 6
 																	# Vetor a ser ordenado (com 16 valores entre 0 e 15)
@@ -148,7 +160,7 @@ vetor:				.word 9 1 10 2 6 13 15 0 12 5 7 14 4 3 11 8
 #vetor:				.word 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 #vetor:				.word 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
 #vetor:				.word 9 1 10 2 9 6 13 15 13 0 12 5 6 0 5 7
-																	# Strings para impressÃ£o de mensagens
+																	# Strings para impressao de mensagens
 msg1:					.asciiz "\ORDENA\n"
 msg2:					.asciiz "Tecle enter"
 																	# Escala de 16 cores em azul
