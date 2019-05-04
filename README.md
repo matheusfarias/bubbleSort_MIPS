@@ -8,4 +8,3 @@
 	 Display Width in Pixels:  512
 	 Display Height in Pixels: 64
  	 Base address for display: ($gp)
-
