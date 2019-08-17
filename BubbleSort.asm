@@ -21,53 +21,53 @@ main:				addi $v0, $zero, 4
 
 					jal bubbleSort						
 
-					addi $v0, $zero, 10				#finalizando programa
+					addi $v0, $zero, 10						#finalizando programa
 					syscall	
 
 bubbleSort:		addi $sp, $sp, -4
 					sw $ra, 0($sp)
 
 					la $s1, n							# s1 = &n
-					la $s0, vetor						# s0 = &vetor
+					la $s0, vetor							# s0 = &vetor
 					lw $t7, 0($s1)
 
 					jal mostra_vetor
 
-					addi $t2, $zero, 1     			# trocou = TRUE
-					addi $t3, $t7, -1	   			# limite = n - 1
+					addi $t2, $zero, 1     						# trocou = TRUE
+					addi $t3, $t7, -1	   					# limite = n - 1
 
-while:			slt $t4, $zero, $t3			  	#inicio cond_while
+while:			slt $t4, $zero, $t3			  					#inicio cond_while
 					beq $t4, $zero, fim_while
 
-					beq $t2, $zero, fim_while     #fim cond_while
+					beq $t2, $zero, fim_while    					 #fim cond_while
 
-					addi $t2, $zero, 0				#trocou = FALSE
-					addi $t1, $zero, 0     			# i = 0
+					addi $t2, $zero, 0						#trocou = FALSE
+					addi $t1, $zero, 0     						# i = 0
 
-for:				slt $t4, $t1, $t3					# <
-					beq $t4, $zero, fim_for     	# i < limite ?
+for:				slt $t4, $t1, $t3							# <
+					beq $t4, $zero, fim_for     					# i < limite ?
 
-					add $t5, $zero, $t1				# t5 = i
-					sll $t5, $t5, 2					# t5 *= 4
+					add $t5, $zero, $t1						# t5 = i
+					sll $t5, $t5, 2							# t5 *= 4
 
-					add $t5, $t5, $s0					# t5 += end_ini
+					add $t5, $t5, $s0						# t5 += end_ini
 
-					lw $t6, 0($t5)						#t6 = v[i]
-					lw $t7, 4($t5)						#t7 = v[i+1]
+					lw $t6, 0($t5)							#t6 = v[i]
+					lw $t7, 4($t5)							#t7 = v[i+1]
 
-					slt $t4, $t7, $t6					# <
-					beq $t4, $zero, fim_if			# if (v[i] > v[i+1])
+					slt $t4, $t7, $t6						# <
+					beq $t4, $zero, fim_if						# if (v[i] > v[i+1])
 
 					jal troca
 
-					addi $t2, $zero, 1				# trocou = TRUE
+					addi $t2, $zero, 1						# trocou = TRUE
 
 
-fim_if:			addi $t1, $t1, 1					#i++
+fim_if:			addi $t1, $t1, 1								#i++
 					j for
 
 fim_for:			jal mostra_vetor
-					addi $t3, $t3, -1          	#limite--
+					addi $t3, $t3, -1          					#limite--
 					j while
 
 
@@ -87,34 +87,34 @@ troca:			lw $t0, 0($t5)
 
 
 #------------------------------------------------------------------------------
-mostra_vetor:	addi $sp, $sp, -16				#alocando espaco em sp
+mostra_vetor:	addi $sp, $sp, -16								#alocando espaco em sp
 					sw $ra, 0($sp)						#salvando o endereco de retorno da main na pilha
 					sw $t0, 4($sp)						# salva t0
 					sw $t1, 8($sp)						# salva t1
-					sw $t2, 12($sp)					# salva t2
+					sw $t2, 12($sp)						# salva t2
 
-					addi $t0, $zero, 0				# j = 0
+					addi $t0, $zero, 0					# j = 0
 					lw $t1, 0($s1)						# t1 = n
 
 for_sub:			slt $t2, $t0, $t1
 					beq $t2, $zero, fim_for_sub
 
-					add $a0, $zero, $t0				#a0 = i (a0 e o parametro)
-					jal	mostra_elemento_vetor	#chama subrotina mostra_elemento_vetor
+					add $a0, $zero, $t0					#a0 = i (a0 e o parametro)
+					jal	mostra_elemento_vetor				#chama subrotina mostra_elemento_vetor
 
 					addi $t0, $t0, 1
 					j for_sub
 
-fim_for_sub:	lw $ra, 0($sp)						#restaurando valor de ra
+fim_for_sub:	lw $ra, 0($sp)									#restaurando valor de ra
 					lw $t0, 4($sp)						#restaurando t0
 					lw $t1, 8($sp)						#restaurando t1
-					lw $t2, 12($sp)					#restaurando t2
+					lw $t2, 12($sp)						#restaurando t2
 					addi $sp, $sp, 16					#liberando espaco na pilha
-					jr $ra 								#voltando pra ordenacao
+					jr $ra 							#voltando pra ordenacao
 	
 
 #------------------------------------------------------------------------------
-																	# PrÃ³logo
+														# Prólogo
 mostra_elemento_vetor:	addi	$sp, $sp, -28			# Aloca espaÃ§o para 7 palavras na pilha
 						sw		$t0, 0 ($sp)					# Salva $t0, $t1, $t2, $t3, $t4, $t5, $t6 na pilha
 						sw		$t1, 4 ($sp)
@@ -123,21 +123,21 @@ mostra_elemento_vetor:	addi	$sp, $sp, -28			# Aloca espaÃ§o para 7 palavras na
 						sw		$t4, 16 ($sp)
 						sw		$t5, 20 ($sp)
 						sw		$t6, 24 ($sp)
-																	# LÃª vetor[Ã­ndice] da memÃ³ria
-						la		$t0, vetor						# $t0 = endereÃ§o inicial de vetor na memÃ³ria
+														# Lê vetor[Índice] da memória
+						la		$t0, vetor					# $t0 = endereço inicial de vetor na memória
 						sll	$t1, $a0, 2						# $t1 = Ã­ndice * 4
-						add	$t1, $t0, $t1					# $t1 = endereÃ§o de vetor[Ã­ndice] na memÃ³ria
+						add	$t1, $t0, $t1						# $t1 = endereÃ§o de vetor[Ã­ndice] na memória
 						lw		$t2, 0 ($t1)					# $t2 = vetor[Ã­ndice] (Ã­ndice da cor com que elemento Ã© desenhado)
-																	# LÃª escala_ azul[vetor[Ã­ndice]] da memÃ³ria
-						la		$t3, escala_azul				# $t3 = endereÃ§o inicial do vetor escala_ azul na memÃ³ria
-						sll	$t4, $t2, 2						# $t4 = vetor[Ã­ndice] * 4
-						add	$t4, $t3, $t4					# $t4 = endereÃ§o de escala_ azul[vetor[Ã­ndice]] na memÃ³ria
+														# LÃª escala_ azul[vetor[Ã­ndice]] da memória
+						la		$t3, escala_azul				# $t3 = endereÃ§o inicial do vetor escala_ azul na memória
+						sll	$t4, $t2, 2						# $t4 = vetor[Índice] * 4
+						add	$t4, $t3, $t4						# $t4 = endereÃ§o de escala_ azul[vetor[Ã­ndice]] na memória
 						lw		$t5, 0 ($t4)					# $t5 = escala_ azul[vetor[Ã­ndice]] (cor com que elemento Ã© desenhado)
-																	# Calcula endereÃ§o no display onde elemento do vetor deve ser desenhado
-						sll	$t6, $a0, 2						# $t6 = Ã­ndice * 4
-						add	$t6, $gp, $t6					# $t6 = endereÃ§o inicial do display + Ã­ndice * 4
+														# Calcula endereÃ§o no display onde elemento do vetor deve ser desenhado
+						sll	$t6, $a0, 2						# $t6 = Índice * 4
+						add	$t6, $gp, $t6						# $t6 = endereÃ§o inicial do display + Ã­ndice * 4
 						sw		$t5, 0 ($t6)					# Escreve cor do elemento do vetor na Ã¡rea de memÃ³ria do display bitmap: mostrado no display
-																	# EpÃ­logo
+														# Epílogo
 						lw		$t0, 0 ($sp)					# Restaura $t0, $t1, $t2, $t3, $t4, $t5, $t6 da pilha
 						lw		$t1, 4 ($sp)
 						lw		$t2, 8 ($sp)
