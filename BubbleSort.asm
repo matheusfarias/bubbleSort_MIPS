@@ -21,7 +21,7 @@ main:					addi $v0, $zero, 4
 
 					jal bubbleSort						
 
-					addi $v0, $zero, 10						#finalizando programa
+					addi $v0, $zero, 10						# finalizando programa
 					syscall	
 
 bubbleSort:				addi $sp, $sp, -4
@@ -36,12 +36,12 @@ bubbleSort:				addi $sp, $sp, -4
 					addi $t2, $zero, 1     						# trocou = TRUE
 					addi $t3, $t7, -1	   					# limite = n - 1
 
-while:					slt $t4, $zero, $t3			  			#inicio cond_while
+while:					slt $t4, $zero, $t3			  			# inicio cond_while
 					beq $t4, $zero, fim_while
 
-					beq $t2, $zero, fim_while    					 #fim cond_while
+					beq $t2, $zero, fim_while    					# fim cond_while
 
-					addi $t2, $zero, 0						#trocou = FALSE
+					addi $t2, $zero, 0						# trocou = FALSE
 					addi $t1, $zero, 0     						# i = 0
 
 for:					slt $t4, $t1, $t3						# <
@@ -52,8 +52,8 @@ for:					slt $t4, $t1, $t3						# <
 
 					add $t5, $t5, $s0						# t5 += end_ini
 
-					lw $t6, 0($t5)							#t6 = v[i]
-					lw $t7, 4($t5)							#t7 = v[i+1]
+					lw $t6, 0($t5)							# t6 = v[i]
+					lw $t7, 4($t5)							# t7 = v[i+1]
 
 					slt $t4, $t7, $t6						# <
 					beq $t4, $zero, fim_if						# if (v[i] > v[i+1])
@@ -63,11 +63,11 @@ for:					slt $t4, $t1, $t3						# <
 					addi $t2, $zero, 1						# trocou = TRUE
 
 
-fim_if:					addi $t1, $t1, 1						#i++
+fim_if:					addi $t1, $t1, 1						# i++
 					j for
 
 fim_for:				jal mostra_vetor
-					addi $t3, $t3, -1          					#limite--
+					addi $t3, $t3, -1          					# limite--
 					j while
 
 
@@ -87,8 +87,8 @@ troca:					lw $t0, 0($t5)
 
 
 #------------------------------------------------------------------------------
-mostra_vetor:				addi $sp, $sp, -16					#alocando espaco em sp
-					sw $ra, 0($sp)						#salvando o endereco de retorno da main na pilha
+mostra_vetor:				addi $sp, $sp, -16					# alocando espaco em sp
+					sw $ra, 0($sp)						# salvando o endereco de retorno da main na pilha
 					sw $t0, 4($sp)						# salva t0
 					sw $t1, 8($sp)						# salva t1
 					sw $t2, 12($sp)						# salva t2
@@ -99,18 +99,18 @@ mostra_vetor:				addi $sp, $sp, -16					#alocando espaco em sp
 for_sub:				slt $t2, $t0, $t1
 					beq $t2, $zero, fim_for_sub
 
-					add $a0, $zero, $t0					#a0 = i (a0 e o parametro)
-					jal	mostra_elemento_vetor				#chama subrotina mostra_elemento_vetor
+					add $a0, $zero, $t0					# a0 = i (a0 e o parametro)
+					jal	mostra_elemento_vetor				# chama subrotina mostra_elemento_vetor
 
 					addi $t0, $t0, 1
 					j for_sub
 
-fim_for_sub:				lw $ra, 0($sp)						#restaurando valor de ra
-					lw $t0, 4($sp)						#restaurando t0
-					lw $t1, 8($sp)						#restaurando t1
-					lw $t2, 12($sp)						#restaurando t2
-					addi $sp, $sp, 16					#liberando espaco na pilha
-					jr $ra 							#voltando pra ordenacao
+fim_for_sub:				lw $ra, 0($sp)						# restaurando valor de ra
+					lw $t0, 4($sp)						# restaurando t0
+					lw $t1, 8($sp)						# restaurando t1
+					lw $t2, 12($sp)						# restaurando t2
+					addi $sp, $sp, 16					# liberando espaco na pilha
+					jr $ra 							# voltando pra ordenacao
 	
 
 #------------------------------------------------------------------------------
