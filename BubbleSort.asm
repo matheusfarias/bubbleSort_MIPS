@@ -97,7 +97,7 @@ for_sub:		slt $t2, $t0, $t1
 			beq $t2, $zero, fim_for_sub
 
 			add $a0, $zero, $t0					# a0 = i (a0 e o parametro)
-			jal	mostra_elemento_vetor				# chama subrotina mostra_elemento_vetor
+			jal mostra_elemento_vetor				# chama subrotina mostra_elemento_vetor
 
 			addi $t0, $t0, 1
 			j for_sub
@@ -111,44 +111,44 @@ fim_for_sub:		lw $ra, 0($sp)						# restaurando valor de ra
 
 #------------------------------------------------------------------------------
 # Prólogo
-mostra_elemento_vetor:	addi		$sp, $sp, -28				# Aloca espaço para 7 palavras na pilha
-			sw		$t0, 0 ($sp)				# Salva $t0, $t1, $t2, $t3, $t4, $t5, $t6 na pilha
-			sw		$t1, 4 ($sp)
-			sw		$t2, 8 ($sp)
-			sw		$t3, 12 ($sp)
-			sw		$t4, 16 ($sp)
-			sw		$t5, 20 ($sp)
-			sw		$t6, 24 ($sp)
+mostra_elemento_vetor:	addi $sp, $sp, -28					# Aloca espaço para 7 palavras na pilha
+			sw $t0, 0 ($sp)						# Salva $t0, $t1, $t2, $t3, $t4, $t5, $t6 na pilha
+			sw $t1, 4 ($sp)
+			sw $t2, 8 ($sp)
+			sw $t3, 12 ($sp)
+			sw $t4, 16 ($sp)
+			sw $t5, 20 ($sp)
+			sw $t6, 24 ($sp)
 										# Lê vetor[Índice] da memória
-			la		$t0, vetor				# $t0 = endereço inicial de vetor na memória
-			sll		$t1, $a0, 2				# $t1 = Índice * 4
-			add		$t1, $t0, $t1				# $t1 = endereço de vetor[Índice] na memória
-			lw		$t2, 0 ($t1)				# $t2 = vetor[Índice] (Índice da cor com que elemento é desenhado)
+			la $t0, vetor						# $t0 = endereço inicial de vetor na memória
+			sll $t1, $a0, 2						# $t1 = Índice * 4
+			add $t1, $t0, $t1					# $t1 = endereço de vetor[Índice] na memória
+			lw $t2, 0 ($t1)						# $t2 = vetor[Índice] (Índice da cor com que elemento é desenhado)
 										# Lê escala_ azul[vetor[Índice]] da memória
-			la		$t3, escala_azul			# $t3 = endereço inicial do vetor escala_ azul na memória
-			sll		$t4, $t2, 2				# $t4 = vetor[Índice] * 4
-			add		$t4, $t3, $t4				# $t4 = endereço de escala_ azul[vetor[Índice]] na memória
-			lw		$t5, 0 ($t4)				# $t5 = escala_ azul[vetor[Índice]] (cor com que elemento é desenhado)
+			la $t3, escala_azul					# $t3 = endereço inicial do vetor escala_ azul na memória
+			sll $t4, $t2, 2						# $t4 = vetor[Índice] * 4
+			add $t4, $t3, $t4					# $t4 = endereço de escala_ azul[vetor[Índice]] na memória
+			lw $t5, 0 ($t4)						# $t5 = escala_ azul[vetor[Índice]] (cor com que elemento é desenhado)
 										# Calcula endereço no display onde elemento do vetor deve ser desenhado
-			sll		$t6, $a0, 2				# $t6 = Índice * 4
-			add		$t6, $gp, $t6				# $t6 = endereço inicial do display + Índice * 4
-			sw		$t5, 0 ($t6)				# Escreve cor do elemento do vetor na Área de memória do display bitmap: mostrado no display
+			sll $t6, $a0, 2						# $t6 = Índice * 4
+			add $t6, $gp, $t6					# $t6 = endereço inicial do display + Índice * 4
+			sw $t5, 0 ($t6)						# Escreve cor do elemento do vetor na Área de memória do display bitmap: mostrado no display
 										# Epílogo
-			lw		$t0, 0 ($sp)				# Restaura $t0, $t1, $t2, $t3, $t4, $t5, $t6 da pilha
-			lw		$t1, 4 ($sp)
-			lw		$t2, 8 ($sp)
-			lw		$t3, 12 ($sp)
-			lw		$t4, 16 ($sp)
-			lw		$t5, 20 ($sp)
-			lw		$t6, 24 ($sp)
-			addi	        $sp, $sp, 28			        # Libera espaco de 7 palavras na pilha
-			jr		$ra					# Retorna da rotina
+			lw $t0, 0 ($sp)						# Restaura $t0, $t1, $t2, $t3, $t4, $t5, $t6 da pilha
+			lw $t1, 4 ($sp)
+			lw $t2, 8 ($sp)
+			lw $t3, 12 ($sp)
+			lw $t4, 16 ($sp)
+			lw $t5, 20 ($sp)
+			lw $t6, 24 ($sp)
+			addi $sp, $sp, 28			        	# Libera espaco de 7 palavras na pilha
+			jr $ra							# Retorna da rotina
 #------------------------------------------------------------------------------
 .data										# Area de dados
 #------------------------------------------------------------------------------
 										# Variaveis e estruturas de dados do programa
-n:					.word 16				# Numero de elementos do vetor (no maximo 16)
-#n:					.word 6
+n:				.word 16					# Numero de elementos do vetor (no maximo 16)
+#n:				.word 6
 #vetor:				.word 1 2 3 4 5 6
 										# Vetor a ser ordenado (com 16 valores entre 0 e 15)
 vetor:				.word 9 1 10 2 6 13 15 0 12 5 7 14 4 3 11 8
